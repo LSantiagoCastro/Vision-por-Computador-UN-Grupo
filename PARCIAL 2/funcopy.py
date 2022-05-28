@@ -7,12 +7,14 @@ import cv2
 import argparse
 
 
+
 class detect_color():
 
-  def __init__(self, path):
-    self.img = cv2.imread(path)
-    img= self.img
-    self.img = np.array(img, dtype=np.uint8) 
+  def __init__(self, img):
+    #self.img = cv2.imread(img)
+    self.img = img
+    self.original = img
+    self.img = np.array(self.img, dtype=np.uint8) 
     self.img = np.array(self.img, dtype=np.uint8)
     self.img = cv2.cvtColor(self.img,  cv2.COLOR_BGR2RGB) #Cambia el orden de los canales
     self.imgHsv = cv2.cvtColor(self.img,  cv2.COLOR_BGR2HSV)
@@ -39,57 +41,57 @@ class detect_color():
       self.verde = SoloVerde
 
     if(color == 2):
-      #verde1 = np.array([25,0,20], np.uint8)
-      #verde2 = np.array([35,255,255], np.uint8)
+      amarillo1 = np.array([25,0,20], np.uint8)
+      amarillo2 = np.array([35,255,255], np.uint8)
 
-      verde1 = np.array([25,103,255], np.uint8)
-      verde2 = np.array([35,20,155], np.uint8)
+      #amarillo1 = np.array([25,103,255], np.uint8)
+      #amarillo2 = np.array([35,20,155], np.uint8)
 
-      mask1 = cv2.inRange(self.imgHsv, verde1, verde2)
-      maskverde = cv2.bitwise_and(self.imgHsv, self.imgHsv, mask = mask1)
+      mask_a_1 = cv2.inRange(self.imgHsv, amarillo1, amarillo2)
+      maskamarilla = cv2.bitwise_and(self.imgHsv, self.imgHsv, mask = mask_a_1)
 
       kernel = np.ones((7,7),np.uint8)
 
-      img_hole = mask1 - np.random.randint(2,size=(mask1.shape[0],mask1.shape[1]),dtype=np.uint8)*255
-      img_hole_removed = cv2.erode(cv2.dilate(img_hole,kernel),kernel)  
+      img_hole_a = mask_a_1 - np.random.randint(2,size=(mask_a_1.shape[0],mask_a_1.shape[1]),dtype=np.uint8)*255
+      img_hole_removed_a = cv2.erode(cv2.dilate(img_hole_a,kernel),kernel)  
 
-      img_noise = img_hole_removed + np.random.randint(2,size=(img_hole_removed.shape[0],img_hole_removed.shape[1]),dtype=np.uint8)*255
+      img_noise_a = img_hole_removed_a + np.random.randint(2,size=(img_hole_removed_a.shape[0],img_hole_removed_a.shape[1]),dtype=np.uint8)*255
       kernel = np.ones((5,5),np.uint8) 
-      mask2 = cv2.dilate(cv2.erode(img_noise,kernel),kernel)
-      maskverde = cv2.bitwise_and(self.imgHsv, self.imgHsv, mask = mask2)
-      SoloVerde = cv2.cvtColor(maskverde,  cv2.COLOR_HSV2RGB)
-      img_color_detected = SoloVerde
-      self.amarilla = SoloVerde
+      mask_a_2 = cv2.dilate(cv2.erode(img_noise_a,kernel),kernel)
+      maskamarilla = cv2.bitwise_and(self.imgHsv, self.imgHsv, mask = mask_a_2)
+      Soloamarilla = cv2.cvtColor(maskamarilla,  cv2.COLOR_HSV2RGB)
+      img_color_detected = Soloamarilla
+      self.amarilla = Soloamarilla
 
 
     if(color == 3):
 
-      verde1 = np.array([145,100,41], np.uint8)
-      verde2 = np.array([170,255,255], np.uint8)
+      violeta1 = np.array([145,100,41], np.uint8)
+      violeta2 = np.array([170,255,255], np.uint8)
 
-      mask11 = cv2.inRange(self.imgHsv, verde1, verde2)
-      maskverde = cv2.bitwise_and(self.imgHsv, self.imgHsv, mask = mask11)
+      mask_vio_1 = cv2.inRange(self.imgHsv, violeta1, violeta2)
+      maskverde = cv2.bitwise_and(self.imgHsv, self.imgHsv, mask = mask_vio_1)
 
 
-      img_noise = mask11 + np.random.randint(2,size=(mask11.shape[0],mask11.shape[1]),dtype=np.uint8)*255
+      img_noise_v = mask_vio_1 + np.random.randint(2,size=(mask_vio_1.shape[0],mask_vio_1.shape[1]),dtype=np.uint8)*255
 
       kernel = np.ones((15,15),np.uint8) 
 
-      img_noise_removed = cv2.dilate(cv2.erode(img_noise,kernel),kernel)
+      img_noise_removed_v = cv2.dilate(cv2.erode(img_noise_v,kernel),kernel)
 
 
-      img_hole = img_noise_removed - np.random.randint(2,size=(img_noise_removed.shape[0],img_noise_removed.shape[1]),dtype=np.uint8)*255
+      img_hole_v = img_noise_removed_v - np.random.randint(2,size=(img_noise_removed_v.shape[0],img_noise_removed_v.shape[1]),dtype=np.uint8)*255
 
 
-      img_hole_removed = cv2.erode(cv2.dilate(img_hole,kernel),kernel) 
+      img_hole_removed_v = cv2.erode(cv2.dilate(img_hole_v,kernel),kernel) 
 
-      img_noise = img_hole_removed + np.random.randint(2,size=(img_hole_removed.shape[0],img_hole_removed.shape[1]),dtype=np.uint8)*255
+      img_noise_v = img_hole_removed_v + np.random.randint(2,size=(img_hole_removed_v.shape[0],img_hole_removed_v.shape[1]),dtype=np.uint8)*255
       kernel = np.ones((5,5),np.uint8) 
-      mask2 = cv2.dilate(cv2.erode(img_noise,kernel),kernel)
-      maskverde = cv2.bitwise_and(self.imgHsv, self.imgHsv, mask = mask2)
-      SoloVerde = cv2.cvtColor(maskverde,  cv2.COLOR_HSV2RGB)
-      img_color_detected = SoloVerde
-      self.morado = SoloVerde
+      mask_vio_2 = cv2.dilate(cv2.erode(img_noise_v,kernel),kernel)
+      maskvioleta = cv2.bitwise_and(self.imgHsv, self.imgHsv, mask = mask_vio_2)
+      SoloVioleta = cv2.cvtColor(maskvioleta,  cv2.COLOR_HSV2RGB)
+      img_color_detected = SoloVioleta
+      self.morado = SoloVioleta
     return img_color_detected
 
   def Canvas(self):
@@ -249,10 +251,11 @@ class detect_color():
       cv2.putText(violeta_conteo, texto, (10,20), cv2.FONT_ITALIC, 0.7,
         color, 2, cv2.LINE_AA)
 
-      imgs = np.hstack([ verde_conteo, amarillo_conteo, violeta_conteo])
- 
+      imgs = np.hstack([ self.original ,verde_conteo, amarillo_conteo, violeta_conteo])
+      imgs = cv2.resize(imgs, (200*4, 150))
+      
       # Mostrar múltiples
-      cv2.imshow("mutil_pic", imgs)
-      cv2.imshow('mat', self.imgHsv)
+      cv2.imshow("main", imgs)
+     
 
 

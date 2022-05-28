@@ -9,28 +9,27 @@ Options:
 """
 from docopt import docopt
 import funciones
-
+import funcopy
 import cv2 
 
 
 def main(path,name):
 
     cap = cv2.VideoCapture(path)
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    fps = 20.0
-    out = cv2.VideoWriter(name, fourcc, fps, (640,  480))
+    
 
     while cap.isOpened():
         
         ret,frame = cap.read()
         if ret:
             frame = cv2.resize(frame, (640, 480))
-            count = funciones.detect_color.Conteo_total()
 
-
-            cv2.imshow('main',count)
-            out.write(frame)
-
+            im = funcopy.detect_color(frame)
+    
+            conteo = im.Conteo_total()
+         
+            conteo
+            
         key = cv2.waitKey(1) 
         if key  == ord('q'):
             break

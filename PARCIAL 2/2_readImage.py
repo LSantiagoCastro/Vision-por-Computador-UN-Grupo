@@ -4,17 +4,19 @@ Usage:
     2_readImage.py <path>
 """
 from docopt import docopt
+
 import funciones 
 
 import cv2
 
 def main(path_image):
     image =  cv2.imread(path_image)
-    im = funciones.detect_colordetect_color(image)
+    im = funciones.detect_color(path_image)
+    
     conteo = im.Conteo_total()
 
     
-    cv2.imshow('image',conteo)
+    conteo
     cv2.waitKey(0)
 
 

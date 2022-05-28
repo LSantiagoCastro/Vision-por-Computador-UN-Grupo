@@ -1,8 +1,7 @@
 """Script to take pictures from camera  
 
 Usage:
-    3_pictureFromCamera.py -f FOLDER [-p PATH]
-
+   pip install os
 Options:
     -f FOLDER   Path to folder to save images.
     -p PATH     Path or index to camera or video [default: 0]

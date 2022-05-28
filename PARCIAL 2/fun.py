@@ -7,12 +7,13 @@ import cv2
 import argparse
 
 
+
 class detect_color():
 
-  def __init__(self, path):
-    self.img = cv2.imread(path)
-    img= self.img
-    self.img = np.array(img, dtype=np.uint8) 
+  def __init__(self, img):
+    #self.img = cv2.imread(img)
+    self.img = img
+    self.img = np.array(self.img, dtype=np.uint8) 
     self.img = np.array(self.img, dtype=np.uint8)
     self.img = cv2.cvtColor(self.img,  cv2.COLOR_BGR2RGB) #Cambia el orden de los canales
     self.imgHsv = cv2.cvtColor(self.img,  cv2.COLOR_BGR2HSV)
@@ -253,6 +254,6 @@ class detect_color():
  
       # Mostrar múltiples
       cv2.imshow("mutil_pic", imgs)
-      cv2.imshow('mat', self.imgHsv)
+      cv2.imshow('mat', self.img)
 
 
