@@ -5,13 +5,13 @@ Usage:
 """
 from docopt import docopt
 
-import funciones 
+import funcopy
 
 import cv2
 
 def main(path_image):
     image =  cv2.imread(path_image)
-    im = funciones.detect_color(path_image)
+    im = funcopy.detect_color(image)
     
     conteo = im.Conteo_total()
 

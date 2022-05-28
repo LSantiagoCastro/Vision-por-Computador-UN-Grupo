@@ -8,7 +8,7 @@ Options:
     -p PATH     Path or index to camera or video [default: 0]
 """
 from docopt import docopt
-import funciones
+
 import funcopy
 import cv2 
 
